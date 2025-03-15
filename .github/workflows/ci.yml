@@ -77,7 +77,7 @@ jobs: # Define the jobs that will run in this workflow
 
       # Step 11: Create .env File and Add Secrets for Production in AWS
       - name: Create .env File and
-        working_directory:
+        working-directory:
         run: | # Run multiple commands
           cd ./backend 
           touch .env
