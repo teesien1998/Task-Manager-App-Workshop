@@ -1,6 +1,6 @@
 # Step 1: Define The Trigger
 
-name: Backend CI
+name: Backend CI # Define the name of the CI workflow
 
 on: # Define the event that triggers the workflow
   push: # Trigger the workflow on a push event
