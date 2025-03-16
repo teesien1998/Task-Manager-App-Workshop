@@ -1,6 +1,6 @@
 # Step 1: Define The Trigger
 
-name: Backend CI # Define the name of the CI workflow
+name: Backend CI # Define the name of the CI workflow actions
 
 on: # Define the event that triggers the workflow
   push: # Trigger the workflow on a push event
@@ -76,14 +76,24 @@ jobs: # Define the jobs that will run in this workflow
       - run: npm ci # Install dependencies using npm clean install
 
       # Step 11: Create .env File and Add Secrets for Production in AWS
-      - name: Create .env File and
-        working-directory:
-        run: | # Run multiple commands
+      - run: | # Run multiple commands
           cd ./backend 
           touch .env
           echo "${{ secrets.PROD }}" > .env
 
-      # Step 12: Start and Restart Services in AWS
-      - run: pm2 start all
+      # Step 12: Start Frontend & Backend in AWS
+      - name: Start Frontend & Backend in AWS
+        run: |
+          cd ./backend
+          pm2 start server.js --name "backend"
+          cd ../frontend
+          pm2 serve ./build 3000 --name "frontend" --spa
+          pm2 save
 
+      # Step 12: Restart All Services in AWS
       - run: pm2 restart all
+
+      # # Step 12: Start and Restart Services in AWS
+      # - run: pm2 start all
+
+      # - run: pm2 restart all
