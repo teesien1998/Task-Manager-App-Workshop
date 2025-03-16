@@ -44,7 +44,7 @@ jobs: # Define the jobs that will run in this workflow
           echo "Secret 3 is: $PORT"
 
       # Step 6: Stop Running Services in AWS
-      - run: pm2 stop all # Stop all running PM2-managed processes in AWS, ensures that old processes are stopped before restarting.
+      - run: pm2 stop all | true # Stop all running PM2-managed processes in AWS, ensures that old processes are stopped before restarting.
 
       # Step 7: Install Backend Dependencies
       - name: Install Backend Dependencies
